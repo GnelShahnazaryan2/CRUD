@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Document</title> -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+
+    <table border="1">
+        <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>UUID</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+
+         <% obj.forEach(function(justOne) { %>
+        <tr>
+            <td><%= justOne.name %></td>
+            <td><%= justOne.price %></td>
+            <td><%= justOne.image %></td>
+            <td><%=justOne.description %></td>
+            <td><%= justOne.uuid %></td>
+            <td><a class="update" href="update/<%= justOne._id %>"><button>Update</button></a></td>
+            <td><a class="delete" href="delete/<%= justOne.uuid %>"><button>Delete</button></a></td>
+        </tr>
+
+        <% }); %>
+    </tbody>
+    </table>
+    <form action="/addInfo" method="post">
+        <input type="text" placeholder="Name" name="name" id="name" required>
+        <input type="number" placeholder="Price" name="price" id="price" required>
+        <input type="text" placeholder="Image Link" name="img" id="img" required>
+        <input type="text" name="description" id="description" placeholder="description">
+        <input type="number" name = "UUID" id="uuid" placeholder="UUID">
+        <input id="id" type="hidden" name="id" ><br>
+        <input type="submit" onclick="sendData()" id="submit">
+       
+    </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
