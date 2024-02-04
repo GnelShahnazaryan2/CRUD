@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+
+    <form action="/updateData" method="post">
+        <input id="name" type="text" required name="name" placeholder="Name" value = "<%= obj.name %>"><br><br>
+        <input type="number" placeholder="Price" name="price" id="price" required  value="<%= obj.price %>">
+        <input type="text" placeholder="Image Link" name="img" id="img" required  value="<%= obj.image %>">
+        <input id="description" type="text" name="description" placeholder="Description"  value = "<%= obj.description %>"><br><br>
+        <input type="number" name = "UUID" id="uuid" placeholder="UUID"    value = "<%= obj.uuid %>">
+        <input id="id" type="hidden" name="id"value="<%= obj._id %>" ><br><br>
+        <input type="submit" >
+    </form>
+</body>
+</html>

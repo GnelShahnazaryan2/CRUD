@@ -4,7 +4,6 @@
 
 div{
   display: flex;
-
   align-items: center;
 }
 
@@ -13,7 +12,6 @@ form {
   height: 300px;
   background-color: rgb(113, 145, 66);
   border-radius: 15px;
-  /* margin-top:20px ; */
   margin: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -33,7 +31,7 @@ form > input:hover {
 
 form > #submit {
   height: 35px;
-  width: 200px;
+  width: 150px;
 }
 
 ::placeholder {
@@ -51,7 +49,7 @@ table tr td{
   padding: 10px;
   text-align: center;
 }
-  
+
 table > tbody > tr > td > a >button{
   background-color: rgb(113, 145, 66);
   margin: 10px;
@@ -60,5 +58,3 @@ table > tbody > tr > td > a >button{
   color: white;
   border: 1px solid white;
 }
-
-

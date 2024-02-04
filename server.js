@@ -7,12 +7,12 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 const connectionString = 'mongodb+srv://gnelsh:gnel.s@cluster0.tdgbjdu.mongodb.net/Tumo_products';
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const { ObjectId } = require('mongoose').Types;
+
 
 app.get("/", function (req, res) {
     mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -38,22 +38,21 @@ app.post("/addInfo", async function (req, res) {
     const price = req.body.price;
     const img = req.body.img;
     const des = req.body.description;
-    const uuid = req.body.uuid;
+    const uuid = req.body.UUID;
     mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Connection error:'));
     db.once('open', async () => {
         console.log('Connected to MongoDB!');
         try {
-            let result = await mongoose.connection.db.collection('products').insertOne({
+            await mongoose.connection.db.collection('products').insertOne({
                 name: name,
                 price: price,
                 image: img,
                 description: des,
                 uuid: uuid
             })
-            // console.log(result);
-                
+          res.redirect('/')
         } catch (error) {
             console.error('Error retrieving movies:', error);
         } finally {
@@ -71,6 +70,7 @@ app.get("/update/:id", function (req, res) {
     db.once('open', async () => {
         try {
             let result = await mongoose.connection.db.collection('products').findOne({_id: new ObjectId(id)});
+
             res.render('../public/update.ejs', {
                 obj: result
             });
@@ -88,7 +88,9 @@ app.post("/updateData", function (req, res) {
     const price = req.body.price;
     const img = req.body.img;
     const des = req.body.description;
-    const uuid = req.body.uuid;
+    const uuid = req.body.UUID;
+    const id = req.body.id
+    console.log(id, uuid);
     mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = mongoose.connection;
 
@@ -97,21 +99,14 @@ app.post("/updateData", function (req, res) {
     db.once('open', async () => {
         console.log('Connected to MongoDB!');
 
-        try {
-            let res = await mongoose.connection.db.collection('products').updateOne({$or : {
-                name: name,
-                price: price,
-                image: img,
-                description: des,
-                uuid: uuid
-            } })
-            // res.json(result);
+       try{
             let result = await mongoose.connection.db.collection('products').updateOne(
                 { _id: new ObjectId(id) },
                 { $set: { name: name, price: price, image: img, description: des, uuid: uuid } }
             );
 
-            res.json(result);
+                res.redirect("/")
+
         } catch (error) {
             console.error('Error retrieving movies:', error);
             console.error('Error updating product:', error);
@@ -120,6 +115,26 @@ app.post("/updateData", function (req, res) {
         }
     })
     });
+
+
+    app.get("/delete/:id", function (req, res) {
+        var id = req.params.id;
+        console.log(id, "ID")
+           mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+           const db = mongoose.connection;
+           db.on('error', console.error.bind(console, 'Connection error:'));
+           db.once('open', async () => {
+               try {
+                   let result = await mongoose.connection.db.collection('products').deleteOne({_id: new ObjectId(id)});
+                   res.redirect('/');
+               } catch (error) {
+                   console.error('Error:', error);
+               } finally {
+                   mongoose.connection.close();
+               }
+           })
+       });
+
 
 
 

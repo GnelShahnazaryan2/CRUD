@@ -29,7 +29,7 @@
             <td><%=justOne.description %></td>
             <td><%= justOne.uuid %></td>
             <td><a class="update" href="update/<%= justOne._id %>"><button>Update</button></a></td>
-            <td><a class="delete" href="delete/<%= justOne.uuid %>"><button>Delete</button></a></td>
+            <td><a class="delete" href="delete/<%= justOne._id %>"><button>Delete</button></a></td>
         </tr>
 
         <% }); %>
@@ -42,8 +42,8 @@
         <input type="text" name="description" id="description" placeholder="description">
         <input type="number" name = "UUID" id="uuid" placeholder="UUID">
         <input id="id" type="hidden" name="id" ><br>
-        <input type="submit" onclick="sendData()" id="submit">
-       
+        <input type="submit"  id="submit">
+
     </form>
     </div>
     <script src="script.js"></script>
